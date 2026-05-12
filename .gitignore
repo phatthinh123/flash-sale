@@ -3,6 +3,13 @@ build/
 .gradle/
 !gradle/wrapper/gradle-wrapper.jar
 
+# Generated sources (MapStruct/JPA metamodel)
+**/src/main/generated/
+**/src/test/generated/
+
+# IDE/compiler output
+**/out/
+
 # IDE
 .idea/
 *.iml

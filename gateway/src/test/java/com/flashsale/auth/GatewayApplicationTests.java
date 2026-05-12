@@ -1,4 +1,4 @@
-package com.flashsale.gateway;
+package com.flashsale.auth;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
