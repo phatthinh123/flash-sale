@@ -7,10 +7,9 @@ COPY gradle/ gradle/
 COPY gradlew build.gradle.kts settings.gradle.kts ./
 
 # Copy all source code (this could be optimized, but works for monorepo)
-#COPY common/ common/
 COPY auth-service/ auth-service/
-#COPY flashsale-service/ flashsale-service/
-#COPY inventory-service/ inventory-service/
+COPY flashsale-service/ flashsale-service/
+COPY inventory-service/ inventory-service/
 COPY gateway/ gateway/
 
 # Build all modules

@@ -4,7 +4,7 @@ spring:
   application:
     name: flashsale-service
   datasource:
-    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/flashsale_db
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/auth_db
     username: ${DB_USER:postgres}
     password: ${DB_PASSWORD:password}
   jpa:
@@ -16,8 +16,12 @@ spring:
   flyway:
     enabled: true
     baseline-on-migrate: true
+    table: flashsale_flyway_schema_history
   data:
     redis:
       host: ${REDIS_HOST:localhost}
       port: ${REDIS_PORT:6379}
+app:
+  jwt:
+    secret: ${JWT_SECRET:dmVyeV9zZWNyZXRfa2V5X3RoYXRfaXNfbG9uZ19lbm91Z2hfZm9yX2hzMjU2X2FsZ29yaXRobV8xMjM0NQ==}
 

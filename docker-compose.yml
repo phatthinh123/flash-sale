@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   postgres:
     image: postgres:16-alpine
@@ -40,12 +38,15 @@ services:
       - "8081:8081"
     environment:
       - DB_HOST=postgres
+      - DB_PASSWORD=password
       - REDIS_HOST=redis
+      - JWT_SECRET=dmVyeV9zZWNyZXRfa2V5X3RoYXRfaXNfbG9uZ19lbm91Z2hfZm9yX2hzMjU2X2FsZ29yaXRobV8xMjM0NQ==
     depends_on:
       postgres:
         condition: service_healthy
       redis:
         condition: service_healthy
+
   flashsale-service:
     build:
       context: .
@@ -57,12 +58,16 @@ services:
       - "8082:8082"
     environment:
       - DB_HOST=postgres
+      - DB_PASSWORD=password
       - REDIS_HOST=redis
+      - JWT_SECRET=dmVyeV9zZWNyZXRfa2V5X3RoYXRfaXNfbG9uZ19lbm91Z2hfZm9yX2hzMjU2X2FsZ29yaXRobV8xMjM0NQ==
     depends_on:
       postgres:
         condition: service_healthy
       redis:
         condition: service_healthy
+      auth-service:
+        condition: service_started
 
   inventory-service:
     build:
@@ -75,6 +80,7 @@ services:
       - "8083:8083"
     environment:
       - DB_HOST=postgres
+      - DB_PASSWORD=password
       - REDIS_HOST=redis
     depends_on:
       postgres:
@@ -91,6 +97,9 @@ services:
     container_name: gateway
     ports:
       - "8080:8080"
+    environment:
+      - AUTH_SERVICE_URL=http://auth-service:8081
+      - FLASHSALE_SERVICE_URL=http://flashsale-service:8082
     depends_on:
       - auth-service
       - flashsale-service

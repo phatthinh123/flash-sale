@@ -22,4 +22,6 @@ public interface UserRepository {
     void updateVerificationStatus(UUID userId, String targetType, boolean verified);
 
     void updateBalance(UUID userId, BigDecimal newBalance);
+
+    boolean debitBalance(UUID userId, BigDecimal amount);
 }

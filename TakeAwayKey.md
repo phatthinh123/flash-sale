@@ -3,6 +3,7 @@ What can be improve:
 - Improve the validation
 - Define generic response handler
 - Improve jwt with mtls 
+- Splitting off the service more (user, auth, account)
 # AUTH-SERVICE
 Normally OTPs are often stored in memory cached because they're short-lived and reduces load on the main database
 However we choose to create an table in this case for few important reasons:

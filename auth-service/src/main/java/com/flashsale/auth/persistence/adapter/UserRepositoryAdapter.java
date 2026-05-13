@@ -66,12 +66,27 @@ public class UserRepositoryAdapter implements UserRepository {
     }
 
     @Transactional
+    @Override
     public void updateBalance(UUID userId, BigDecimal newBalance) {
         jpaUserRepository.findById(userId).ifPresent(entity -> {
             entity.setBalance(newBalance);
             jpaUserRepository.save(entity);
         });
     }
+
+    @Override
+    @Transactional
+    public boolean debitBalance(UUID userId, BigDecimal amount) {
+        return jpaUserRepository.findForUpdateById(userId)
+                .filter(entity -> entity.getBalance().compareTo(amount) >= 0)
+                .map(entity -> {
+                    entity.setBalance(entity.getBalance().subtract(amount));
+                    jpaUserRepository.save(entity);
+                    return true;
+                })
+                .orElse(false);
+    }
+
     @Mapper(componentModel = "spring")
     interface JpaMapper {
         UserEntity toEntity(User user);

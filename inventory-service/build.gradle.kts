@@ -17,5 +17,8 @@ dependencies {
 
     // Swagger
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.4")
+
+    // JSON
+    implementation("com.fasterxml.jackson.core:jackson-databind")
 }
 
