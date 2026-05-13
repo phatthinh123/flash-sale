@@ -46,6 +46,42 @@ services:
         condition: service_healthy
       redis:
         condition: service_healthy
+  flashsale-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        MODULE_NAME: flashsale-service
+    container_name: flashsale-service
+    ports:
+      - "8082:8082"
+    environment:
+      - DB_HOST=postgres
+      - REDIS_HOST=redis
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  inventory-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        MODULE_NAME: inventory-service
+    container_name: inventory-service
+    ports:
+      - "8083:8083"
+    environment:
+      - DB_HOST=postgres
+      - REDIS_HOST=redis
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
   gateway:
     build:
       context: .
@@ -57,45 +93,8 @@ services:
       - "8080:8080"
     depends_on:
       - auth-service
-  #      - flashsale-service
-  #      - inventory-service
-
-  #
-  #  flashsale-service:
-  #    build:
-  #      context: .
-  #      dockerfile: Dockerfile
-  #      args:
-  #        MODULE_NAME: flashsale-service
-  #    container_name: flashsale-service
-  #    ports:
-  #      - "8082:8082"
-  #    environment:
-  #      - DB_HOST=postgres
-  #      - REDIS_HOST=redis
-  #    depends_on:
-  #      postgres:
-  #        condition: service_healthy
-  #      redis:
-  #        condition: service_healthy
-  #
-  #  inventory-service:
-  #    build:
-  #      context: .
-  #      dockerfile: Dockerfile
-  #      args:
-  #        MODULE_NAME: inventory-service
-  #    container_name: inventory-service
-  #    ports:
-  #      - "8083:8083"
-  #    environment:
-  #      - DB_HOST=postgres
-  #      - REDIS_HOST=redis
-  #    depends_on:
-  #      postgres:
-  #        condition: service_healthy
-  #      redis:
-  #        condition: service_healthy
+      - flashsale-service
+      - inventory-service
 
 volumes:
   postgres_data:

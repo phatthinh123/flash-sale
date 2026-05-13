@@ -52,6 +52,7 @@ public class UserRepositoryAdapter implements UserRepository {
         return jpaUserRepository.existsByPhone(phone);
     }
 
+    @Override
     @Transactional
     public void updateVerificationStatus(UUID userId, String targetType, boolean verified) {
         jpaUserRepository.findById(userId).ifPresent(entity -> {
