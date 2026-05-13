@@ -16,6 +16,7 @@ spring:
   flyway:
     enabled: true
     baseline-on-migrate: true
+    baseline-version: 0
     table: flashsale_flyway_schema_history
   data:
     redis:
