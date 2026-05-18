@@ -8,13 +8,13 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class MockCommunication implements CommunicationPort {
 
-    @Override
-    public void sendOTP(String target, String otpCode, String targetType) {
-        log.info("========================================");
-        log.info("  OTP VERIFICATION CODE");
-        log.info("  Target: {} ({})", target, targetType);
-        log.info("  Code: {}", otpCode);
-        log.info("  Expires in: 5 minutes");
-        log.info("========================================");
-    }
+  @Override
+  public void sendOTP(String target, String otpCode, String targetType) {
+    log.info("========================================");
+    log.info("  OTP VERIFICATION CODE");
+    log.info("  Target: {} ({})", target, targetType);
+    log.info("  Code: {}", otpCode);
+    log.info("  Expires in: 5 minutes");
+    log.info("========================================");
+  }
 }

@@ -21,4 +21,3 @@ dependencies {
     // JSON
     implementation("com.fasterxml.jackson.core:jackson-databind")
 }
-

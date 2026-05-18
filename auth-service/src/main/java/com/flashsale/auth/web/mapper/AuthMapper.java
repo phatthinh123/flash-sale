@@ -7,7 +7,7 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface AuthMapper {
-    AuthPort.RegisterCommand to(RegisterRequest request);
+  AuthPort.RegisterCommand to(RegisterRequest request);
 
-    AuthPort.LoginCommand to(LoginRequest request);
+  AuthPort.LoginCommand to(LoginRequest request);
 }

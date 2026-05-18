@@ -4,10 +4,4 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 public record InventoryRecord(
-        UUID id,
-        UUID productId,
-        String productName,
-        int stockQuantity,
-        LocalDateTime lastSyncedAt
-) {
-}
+    UUID id, UUID productId, String productName, int stockQuantity, LocalDateTime lastSyncedAt) {}

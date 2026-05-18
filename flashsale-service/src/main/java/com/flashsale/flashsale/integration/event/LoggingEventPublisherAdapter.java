@@ -8,10 +8,8 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class LoggingEventPublisherAdapter implements EventPublisherPort {
 
-    @Override
-    public void publish(String topic, Object payload) {
-        log.info("Publishing event topic={}, payload={}", topic, payload);
-    }
-
+  @Override
+  public void publish(String topic, Object payload) {
+    log.info("Publishing event topic={}, payload={}", topic, payload);
+  }
 }
-

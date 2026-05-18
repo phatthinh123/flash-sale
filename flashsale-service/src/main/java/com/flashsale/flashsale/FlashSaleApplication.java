@@ -8,10 +8,7 @@ import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 @ConfigurationPropertiesScan
 public class FlashSaleApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(FlashSaleApplication.class, args);
-	}
-
+  public static void main(String[] args) {
+    SpringApplication.run(FlashSaleApplication.class, args);
+  }
 }
-
-

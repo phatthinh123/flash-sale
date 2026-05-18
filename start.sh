@@ -1,9 +1,6 @@
 #!/bin/bash
 set -e
 
-echo "Building all microservices..."
-./gradlew clean build -x test --no-daemon
-
 echo "Starting infrastructure and microservices with Docker Compose..."
 docker compose up --build -d
 

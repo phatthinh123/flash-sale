@@ -5,13 +5,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "processed_orders")
@@ -22,15 +21,15 @@ import java.time.LocalDateTime;
 @Builder
 public class ProcessedOrderEntity {
 
-    @Id
-    @Column(name = "order_id", nullable = false, length = 255)
-    private String orderId;
+  @Id
+  @Column(name = "order_id", nullable = false, length = 255)
+  private String orderId;
 
-    @Column(name = "processed_at", nullable = false, updatable = false)
-    private LocalDateTime processedAt;
+  @Column(name = "processed_at", nullable = false, updatable = false)
+  private LocalDateTime processedAt;
 
-    @PrePersist
-    protected void onCreate() {
-        processedAt = LocalDateTime.now();
-    }
+  @PrePersist
+  protected void onCreate() {
+    processedAt = LocalDateTime.now();
+  }
 }

@@ -15,3 +15,7 @@ spring:
             uri: ${FLASHSALE_SERVICE_URL:http://localhost:8082}
             predicates:
               - Path=/api/v1/flash-sales/**
+          - id: inventory-service
+            uri: ${INVENTORY_SERVICE_URL:http://localhost:8083}
+            predicates:
+              - Path=/api/v1/inventory/**

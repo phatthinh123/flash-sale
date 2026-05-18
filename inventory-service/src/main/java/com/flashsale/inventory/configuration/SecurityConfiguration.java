@@ -15,16 +15,19 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableAutoConfiguration(exclude = UserDetailsServiceAutoConfiguration.class)
 public class SecurityConfiguration {
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .csrf(AbstractHttpConfigurer::disable)
-                .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html").permitAll()
-                        .requestMatchers("/actuator/health", "/actuator/info").permitAll()
-                        .anyRequest().permitAll() // internal service — no public auth
-                );
-        return http.build();
-    }
+  @Bean
+  public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    http.csrf(AbstractHttpConfigurer::disable)
+        .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+        .authorizeHttpRequests(
+            auth ->
+                auth.requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html")
+                    .permitAll()
+                    .requestMatchers("/actuator/health", "/actuator/info")
+                    .permitAll()
+                    .anyRequest()
+                    .permitAll() // internal service — no public auth
+            );
+    return http.build();
+  }
 }

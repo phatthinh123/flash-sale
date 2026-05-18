@@ -15,3 +15,13 @@ Swagger
 
 http://localhost:8081/swagger-ui.html
 http://localhost:8082/swagger-ui.html
+
+# Redis stream tour
+docker exec -it flashsale-redis redis-cli XLEN flashsale.purchase.completed
+docker exec -it flashsale-redis redis-cli XRANGE flashsale.purchase.completed - +
+
+# Inspect the consumer group
+docker exec -it flashsale-redis redis-cli XINFO GROUPS flashsale.purchase.completed
+
+# See pending (unacked) messages
+docker exec -it flashsale-redis redis-cli XPENDING flashsale.purchase.completed inventory-group

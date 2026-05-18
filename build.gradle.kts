@@ -2,6 +2,7 @@ plugins {
     java
     id("org.springframework.boot") version "3.4.5" apply false
     id("io.spring.dependency-management") version "1.1.7" apply false
+    id("com.diffplug.spotless") version "6.25.0"
 }
 
 allprojects {
@@ -16,6 +17,7 @@ allprojects {
 subprojects {
     apply(plugin = "java")
     apply(plugin = "io.spring.dependency-management")
+    apply(plugin = "com.diffplug.spotless")
 
     java {
         toolchain {
@@ -39,5 +41,21 @@ subprojects {
 
     tasks.withType<Test> {
         useJUnitPlatform()
+    }
+
+    configure<com.diffplug.gradle.spotless.SpotlessExtension> {
+        java {
+            target("src/**/*.java")
+            targetExclude("**/generated/**", "**/build/**")
+            googleJavaFormat("1.22.0")
+            removeUnusedImports()
+            trimTrailingWhitespace()
+            endWithNewline()
+            toggleOffOn()
+        }
+        kotlinGradle {
+            target("*.gradle.kts")
+            ktlint("1.2.1")
+        }
     }
 }

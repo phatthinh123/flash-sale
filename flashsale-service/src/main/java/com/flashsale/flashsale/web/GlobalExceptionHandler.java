@@ -10,21 +10,22 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @Slf4j
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(IllegalArgumentException.class)
-    public ProblemDetail handleIllegalArgument(IllegalArgumentException ex) {
-        log.debug("Bad request: {}", ex.getMessage());
-        return ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, ex.getMessage());
-    }
+  @ExceptionHandler(IllegalArgumentException.class)
+  public ProblemDetail handleIllegalArgument(IllegalArgumentException ex) {
+    log.debug("Bad request: {}", ex.getMessage());
+    return ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, ex.getMessage());
+  }
 
-    @ExceptionHandler(IllegalStateException.class)
-    public ProblemDetail handleIllegalState(IllegalStateException ex) {
-        log.debug("Conflict: {}", ex.getMessage());
-        return ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT, ex.getMessage());
-    }
+  @ExceptionHandler(IllegalStateException.class)
+  public ProblemDetail handleIllegalState(IllegalStateException ex) {
+    log.debug("Conflict: {}", ex.getMessage());
+    return ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT, ex.getMessage());
+  }
 
-    @ExceptionHandler(Exception.class)
-    public ProblemDetail handleGeneric(Exception ex) {
-        log.error("Unexpected error", ex);
-        return ProblemDetail.forStatusAndDetail(HttpStatus.INTERNAL_SERVER_ERROR, "An unexpected error occurred");
-    }
+  @ExceptionHandler(Exception.class)
+  public ProblemDetail handleGeneric(Exception ex) {
+    log.error("Unexpected error", ex);
+    return ProblemDetail.forStatusAndDetail(
+        HttpStatus.INTERNAL_SERVER_ERROR, "An unexpected error occurred");
+  }
 }

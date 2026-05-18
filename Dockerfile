@@ -23,8 +23,8 @@ WORKDIR /app
 ARG MODULE_NAME
 ENV MODULE=${MODULE_NAME}
 
-# Copy the built jar from the build stage for the specified module
-COPY --from=build /app/${MODULE_NAME}/build/libs/*.jar app.jar
+# Copy ONLY the bootable Spring Boot jar (exclude the -plain.jar)
+COPY --from=build /app/${MODULE_NAME}/build/libs/${MODULE_NAME}-0.0.1-SNAPSHOT.jar app.jar
 
 EXPOSE 8080 8081 8082 8083
 ENTRYPOINT ["java", "-jar", "app.jar"]

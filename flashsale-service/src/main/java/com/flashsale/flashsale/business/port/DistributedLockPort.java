@@ -1,7 +1,7 @@
 package com.flashsale.flashsale.business.port;
 
 public interface DistributedLockPort {
-    boolean tryLock(String lockKey);
+  boolean tryLock(String lockKey);
 
-    void unlock(String lockKey);
+  void unlock(String lockKey);
 }

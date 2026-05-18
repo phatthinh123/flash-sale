@@ -11,21 +11,22 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class OpenApiConfig {
 
-    @Bean
-    public OpenAPI openAPI() {
-        return new OpenAPI()
-                .info(new Info()
-                        .title("Flash Sale Service API")
-                        .description("Backend service for user authentication and flash sales")
-                        .version("1.0.0")
-                        .contact(new Contact()
-                                .name("Tran Phat Thinh")
-                                .email("phatthinh123@gmail.com")))
-                .components(new Components()
-                        .addSecuritySchemes("bearerAuth",
-                                new SecurityScheme()
-                                        .type(SecurityScheme.Type.HTTP)
-                                        .scheme("bearer")
-                                        .bearerFormat("JWT")));
-    }
+  @Bean
+  public OpenAPI openAPI() {
+    return new OpenAPI()
+        .info(
+            new Info()
+                .title("Flash Sale Service API")
+                .description("Backend service for user authentication and flash sales")
+                .version("1.0.0")
+                .contact(new Contact().name("Tran Phat Thinh").email("phatthinh123@gmail.com")))
+        .components(
+            new Components()
+                .addSecuritySchemes(
+                    "bearerAuth",
+                    new SecurityScheme()
+                        .type(SecurityScheme.Type.HTTP)
+                        .scheme("bearer")
+                        .bearerFormat("JWT")));
+  }
 }
