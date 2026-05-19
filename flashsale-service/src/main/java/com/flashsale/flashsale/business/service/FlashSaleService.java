@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -112,7 +113,13 @@ public class FlashSaleService implements FlashSalePort {
     }
 
     PurchaseOrder order = PurchaseOrder.createCompleted(userId, productId, product.flashPrice());
-    PurchaseOrder savedOrder = purchaseRepository.save(order);
+    PurchaseOrder savedOrder;
+    try {
+      savedOrder = purchaseRepository.save(order);
+    } catch (DataIntegrityViolationException e) {
+      throw new IllegalStateException(
+          "You've already purchased a flash sale product today, see you tomorrow!", e);
+    }
 
     eventPublisherPort.publish(
         "flashsale.purchase.completed",

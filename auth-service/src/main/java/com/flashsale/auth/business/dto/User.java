@@ -17,12 +17,4 @@ public record User(
   public boolean isVerified() {
     return (email != null && emailVerified) || (phone != null && phoneVerified);
   }
-  //
-  //    public User deductBalance(BigDecimal amount) {
-  //        if (balance.compareTo(amount) < 0) {
-  //            throw new IllegalStateException("Insufficient balance");
-  //        }
-  //        return new User(id, email, phone, passwordHash, balance.subtract(amount),
-  //                emailVerified, phoneVerified, createdAt, LocalDateTime.now());
-  //    }
 }

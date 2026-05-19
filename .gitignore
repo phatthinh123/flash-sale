@@ -23,3 +23,11 @@ Thumbs.db
 # Runtime
 *.log
 *.pid
+
+# Benchmark artifacts
+scripts/benchmark/tokens.json
+scripts/benchmark/product_id.txt
+scripts/benchmark/login_credentials.json
+scripts/benchmark/purchase_tokens.json
+scripts/benchmark/product_ids.json
+

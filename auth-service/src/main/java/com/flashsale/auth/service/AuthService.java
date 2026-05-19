@@ -32,25 +32,28 @@ public class AuthService implements AuthPort {
   @Override
   @Transactional
   public User register(RegisterCommand command) {
+    String email = normalizeToNull(command.email());
+    String phone = normalizeToNull(command.phone());
+
     // Validate that at least email or phone is provided
-    if (command.email() == null && command.phone() == null) {
+    if (email == null && phone == null) {
       throw new IllegalArgumentException("Either email or phone must be provided");
     }
 
     // Check for existing users
-    if (command.email() != null && userRepository.existsByEmail(command.email())) {
+    if (email != null && userRepository.existsByEmail(email)) {
       throw new IllegalStateException("Email already registered");
     }
 
-    if (command.phone() != null && userRepository.existsByPhone(command.phone())) {
+    if (phone != null && userRepository.existsByPhone(phone)) {
       throw new IllegalStateException("Phone number already registered");
     }
 
     User user =
         new User(
             null,
-            command.email(),
-            command.phone(),
+            email,
+            phone,
             passwordEncoder.encode(command.password()),
             BigDecimal.valueOf(1000.00), // Default starting balance
             false,
@@ -60,8 +63,8 @@ public class AuthService implements AuthPort {
     User savedUser = userRepository.save(user);
 
     // Generate and send OTP
-    String target = command.email() != null ? command.email() : command.phone();
-    String targetType = command.email() != null ? "EMAIL" : "PHONE";
+    String target = email != null ? email : phone;
+    String targetType = email != null ? "EMAIL" : "PHONE";
     String otpCode = generateOtp();
 
     OtpToken otpToken =
@@ -70,7 +73,7 @@ public class AuthService implements AuthPort {
             savedUser.id(),
             otpCode,
             target,
-            command.email() != null ? OtpToken.TargetType.EMAIL : OtpToken.TargetType.PHONE,
+            email != null ? OtpToken.TargetType.EMAIL : OtpToken.TargetType.PHONE,
             LocalDateTime.now().plusMinutes(5),
             false,
             LocalDateTime.now());
@@ -126,5 +129,13 @@ public class AuthService implements AuthPort {
   private String generateOtp() {
     int otp = 100000 + secureRandom.nextInt(900000);
     return String.valueOf(otp);
+  }
+
+  private String normalizeToNull(String value) {
+    if (value == null) {
+      return null;
+    }
+    String trimmed = value.trim();
+    return trimmed.isEmpty() ? null : trimmed;
   }
 }
