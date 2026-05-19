@@ -58,3 +58,4 @@ docker exec -it flashsale-redis redis-cli XPENDING flashsale.purchase.completed 
 - Improve OpenAPI docs (DTO generation/versioning).
 - Add static analysis gates (e.g., SonarQube).
 - Consider further service decomposition (`user`, `product`, `account`, `purchase`) when scale requires it.
+- Further extract common classes
