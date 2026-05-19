@@ -1,6 +1,6 @@
 # Flash Sale - Takeaway Notes
 
-## What Is Implemented Well
+## What Is Implemented
 - Authentication with either email or phone (single API path), OTP verification, JWT login/logout.
 - Flash-sale correctness controls: product lock, optimistic update, and one-purchase-per-day rule.
 - Inventory synchronization via Redis Streams consumer group with idempotency (`processed_orders`).

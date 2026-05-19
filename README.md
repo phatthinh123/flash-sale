@@ -13,6 +13,11 @@ Multi-service backend for authentication, flash sale purchasing, and inventory s
 
 ## Architecture Notes
 
+- Architecture style: microservices with **Hexagonal Architecture (Ports and Adapters)** inside each service.
+- Layering per service: `Controller -> Service (use case) -> Port -> Adapter (DB/Redis/HTTP)`.
+- Sync path: client -> `gateway` -> target service API.
+- Async path: `flashsale-service` publishes `flashsale.purchase.completed` to Redis Streams; `inventory-service` consumes and applies idempotent updates.
+- Concurrency controls: Redis distributed lock + optimistic locking + DB constraints.
 - `auth-service` and `flashsale-service` share `auth_db`.
 - `inventory-service` uses `inventory_db`.
 - Flyway history is separated per service (`auth_flyway_schema_history`, `flashsale_flyway_schema_history`) to avoid migration conflicts.
